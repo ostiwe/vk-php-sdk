@@ -40,6 +40,8 @@ abstract class VKCallbackApiHandler {
     protected const CALLBACK_EVENT_POLL_VOTE_NEW = 'poll_vote_new';
     protected const CALLBACK_EVENT_USER_BLOCK = 'user_block';
     protected const CALLBACK_EVENT_USER_UNBLOCK = 'user_unblock';
+    protected const CALLBACK_EVENT_LIKE_ADD = 'like_add';
+    protected const CALLBACK_EVENT_LIKE_REMOVE = 'like_remove';
 
     /**
      * @param int $group_id
@@ -303,6 +305,20 @@ abstract class VKCallbackApiHandler {
     /**
      * @param int $group_id
      * @param null|string $secret
+     * @param array $object
+     */
+    public function likeAdd(int $group_id, ?string $secret, array $object){}
+
+    /**
+     * @param int $group_id
+     * @param null|string $secret
+     * @param array $object
+     */
+    public function likeRemove(int $group_id, ?string $secret, array $object){}
+
+    /**
+     * @param int $group_id
+     * @param null|string $secret
      * @param string $type
      * @param array $object
      */
@@ -418,6 +434,12 @@ abstract class VKCallbackApiHandler {
                 break;
             case static::CALLBACK_EVENT_USER_UNBLOCK:
                 $this->userUnblock($group_id, $secret, $object);
+                break;
+            case static::CALLBACK_EVENT_LIKE_ADD:
+                $this->likeAdd($group_id, $secret, $object);
+                break;
+            case static::CALLBACK_EVENT_LIKE_REMOVE:
+                $this->likeRemove($group_id, $secret, $object);
                 break;
         }
     }
